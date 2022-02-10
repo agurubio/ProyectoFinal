@@ -23,15 +23,19 @@
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                        <li class="nav-item"><a class="nav-link" href="#!">Personal</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#!">Especialidad</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#!">Equipos de Trabajo</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{%url 'Inicio' %}">Inicio</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{%url 'Personal' %}">Personal</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{%url 'Especialidad' %}">Especialidad</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{%url 'Equipo_Trabajo' %}">Equipos de Trabajo</a></li>
                     </ul>
                 </div>
             </div>
         </nav>
      
+        <!-- Printing section -->
+            {% block contenidoQueCambia %}
         
+            {% endblock %}    
         <!-- Features section-->
         <section class="py-5 border-bottom" id="features">
             <div class="container px-5 my-5">
@@ -40,7 +44,7 @@
                         <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3"><i class="bi bi-collection"></i></div>
                         <h2 class="h4 fw-bolder">Personal</h2>
                         <p> Base de datos del personal del área</p>
-                        <a class="text-decoration-none" href="#!">
+                        <a class="text-decoration-none" href="{%url 'Personal' %}">
                             Personal
                             <i class="bi bi-arrow-right"></i>
                         </a>
@@ -49,7 +53,7 @@
                         <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3"><i class="bi bi-building"></i></div>
                         <h2 class="h4 fw-bolder">Especialidades</h2>
                         <p>Especialidades con las que contamos en el área de Mantenimiento </p>
-                        <a class="text-decoration-none" href="#!">
+                        <a class="text-decoration-none" href="{%url 'Especialidad' %}">
                             Especialidades
                             <i class="bi bi-arrow-right"></i>
                         </a>
@@ -58,7 +62,7 @@
                         <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3"><i class="bi bi-toggles2"></i></div>
                         <h2 class="h4 fw-bolder">Equipos de Trabajo</h2>
                         <p>Detalle de cada uno de los equipos de trabajo pertenecientes al área</p>
-                        <a class="text-decoration-none" href="#!">
+                        <a class="text-decoration-none" href="{%url 'Equipo_Trabajo' %}">
                             Equipos de Trabajo
                             <i class="bi bi-arrow-right"></i>
                         </a>
@@ -66,11 +70,7 @@
                 </div>
             </div>
         </section>
-       
-        <!-- Printing section -->
-        {% block contenidoQueCambia %}
-        
-        {% endblock %}             
+              
         
         <!-- Footer-->
         <footer class="py-5 bg-dark">

@@ -4,9 +4,9 @@ from AppFinal import views
 
 
 urlpatterns = [
-    path('', views.inicio ),
-    path('personal/', views.personal ),
-    path('especialidad/', views.especialidad ),
-    path('equipoTrabajo/', views.equipo_trabajo ),
+    path('', views.inicio, name="Inicio" ),
+    path('personal/', views.personal, name= "Personal" ),
+    path('especialidad/', views.especialidad, name = "Especialidad" ),
+    path('equipoTrabajo/', views.equipo_trabajo, name = "Equipo_Trabajo" ),
 
 ]
