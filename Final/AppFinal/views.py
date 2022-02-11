@@ -1,8 +1,8 @@
-from django.http import HttpResponse
 from django.shortcuts import render
 
 from AppFinal.models import Personal
-from AppFinal.forms import PersonalFormulario
+from AppFinal.forms import PersonalFormulario, EspecialidadFormulario
+from AppFinal.models import Especialidad
 
 
 # Create your views here.
@@ -11,9 +11,6 @@ def inicio(request):
     return render(request, 'Final/inicio.html')
 
 def personal(request):
-    return render(request, 'Final/personal.html')
-
-def personalFormulario(request):
     
     miFormulario = PersonalFormulario()
     if request.method == 'POST':
@@ -34,11 +31,30 @@ def personalFormulario(request):
 
         else:
             miFormulario=PersonalFormulario()
-    return render(request, 'Final/personalFormulario.html', {"miFormulario":miFormulario})
-    #return render(request, 'Final/personalFormulario.html')
+    return render(request, 'Final/personal.html', {"miFormulario":miFormulario})
 
 def especialidad(request):
-    return render(request, 'Final/especialidad.html')
+    miFormulario = EspecialidadFormulario()
+    if request.method == 'POST':
+
+        miFormulario = EspecialidadFormulario(request.POST)
+
+        print(miFormulario)
+
+        if miFormulario.is_valid:
+            
+            informacion = miFormulario.cleaned_data
+
+            especialidad = Especialidad(nombre=informacion['especialidad'], activo=informacion['esp_activa'])
+            
+            especialidad.save()
+            
+            return render(request, 'Final/inicio.html')
+
+        else:
+            miFormulario=EspecialidadFormulario()       
+    return render(request, 'Final/especialidad.html', {"miFormulario":miFormulario})
+
 
 def equipo_trabajo(request):
     return render(request, 'Final/equipo_trabajo.html')
@@ -52,9 +68,9 @@ def buscar(request):
         legajo = request.GET['persona']
         persona = Personal.objects.filter(legajo__icontains=legajo)
 
-        return render(request, 'Final/resultadoBusqueda.html', {"persona":persona, "legajo":legajo} )
-   
+        return render(request, 'Final/personal.html', {"persona":persona, "legajo":legajo} )
+    
     else:
         respuesta = "Ningun dato solicitado"
     
-    return HttpResponse(respuesta)
+    return render(request, 'Final/personal.html', {"respuesta":respuesta})

@@ -3,6 +3,39 @@
 {% load static %}
 
 {% block contenidoQueCambia %}
-Vista de personal
+{% if miFormulario %}
+{% if miFormulario.errors %}
+
+<p style="color:red"> Están mal los datos, revisar</p>
+
+{% endif %}
+
+<form action="" method="POST"> {% csrf_token %}
+
+    <table>
+
+        {{ miFormulario.as_table }}
+
+    </table>
+        
+    <input type="submit" value="Enviar">
+
+</form>
+{% endif %}
+
+{% if persona %}
+<p>Estamos buscando el legajo: {{legajo}} </p>    
+<ul>
+    {% if persona %}
+        {% for personas in persona %}
+            <li>Nombre: {{personas.nombre}} </li>
+            <li>Apellido: {{personas.apellido}}</li>
+            <li>Legajo: {{personas.legajo}}</li>
+        {% endfor %}
+    {% else %}
+        <li>Legajo no encontrado</li>
+    {% endif %}
+{% endif %}
+</ul>
 
 {% endblock %}

@@ -3,6 +3,39 @@
 {% load static %}
 
 {% block contenidoQueCambia %}
-Vista de Especialidades
+
+{% if miFormulario %}
+{% if miFormulario.errors %}
+
+<p style="color:red"> Están mal los datos, revisar</p>
+
+{% endif %}
+
+<form action="" method="POST"> {% csrf_token %}
+
+    <table>
+
+        {{ miFormulario.as_table }}
+
+    </table>
+        
+    <input type="submit" value="Enviar">
+
+</form>
+{% endif %}
+
+{% if especialidad %}
+<p>Estamos buscando la especialidad : {{especialidad}} </p>    
+<ul>
+    {% if especialidad %}
+        {% for clases in especialidad %}
+            <li>Especialidad: {{clases.especialidad}} </li>
+            <li>Activa (Si= 1, No =0): {{clases.esp_activa}}</li>
+        {% endfor %}
+    {% else %}
+        <li>Especialidad no encontrado</li>
+    {% endif %}
+{% endif %}
+</ul>
 
 {% endblock %}
