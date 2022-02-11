@@ -1,3 +1,4 @@
+from django.http import HttpResponse
 from django.shortcuts import render
 
 from AppFinal.models import Personal
@@ -32,6 +33,30 @@ def personal(request):
         else:
             miFormulario=PersonalFormulario()
     return render(request, 'Final/personal.html', {"miFormulario":miFormulario})
+
+def personalFormulario(request):
+    
+    miFormulario = PersonalFormulario()
+    if request.method == 'POST':
+
+        miFormulario = PersonalFormulario(request.POST)
+
+        print(miFormulario)
+
+        if miFormulario.is_valid:
+            
+            informacion = miFormulario.cleaned_data
+
+            personal = Personal(nombre=informacion['nombre'], apellido=informacion['apellido'], legajo=informacion['legajo'])
+            
+            personal.save()
+            
+            return render(request, 'Final/inicio.html')
+
+        else:
+            miFormulario=PersonalFormulario()
+    return render(request, 'Final/personalFormulario.html', {"miFormulario":miFormulario})
+    #return render(request, 'Final/personalFormulario.html')
 
 def especialidad(request):
     miFormulario = EspecialidadFormulario()
