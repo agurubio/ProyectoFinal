@@ -8,3 +8,7 @@ class PersonalFormulario(forms.Form):
 class EspecialidadFormulario(forms.Form):
     especialidad = forms.CharField(max_length=30)
     esp_activa = forms.BooleanField()
+
+class EquipoFormulario(forms.Form):
+    equipo = forms.CharField(max_length=30)
+    responsable = forms.CharField(max_length=30)

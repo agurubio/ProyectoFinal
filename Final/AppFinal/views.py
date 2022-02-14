@@ -2,8 +2,9 @@ from django.http import HttpResponse
 from django.shortcuts import render
 
 from AppFinal.models import Personal
-from AppFinal.forms import PersonalFormulario, EspecialidadFormulario
-from AppFinal.models import Especialidad
+from AppFinal.forms import PersonalFormulario, EspecialidadFormulario, EquipoFormulario
+from AppFinal.models import Especialidad, EquipoTrabajo
+
 
 
 # Create your views here.
@@ -82,10 +83,36 @@ def especialidad(request):
 
 
 def equipo_trabajo(request):
-    return render(request, 'Final/equipo_trabajo.html')
+    miFormulario = EquipoFormulario()
+    if request.method == 'POST':
 
+        miFormulario = EquipoFormulario(request.POST)
+
+        print(miFormulario)
+
+        if miFormulario.is_valid:
+            
+            informacion = miFormulario.cleaned_data
+
+            equipo = EquipoTrabajo(equipo=informacion['equipo'], responsable=informacion['responsable'])
+            
+            equipo.save()
+            
+            return render(request, 'Final/inicio.html')
+
+        else:
+            miFormulario=EquipoFormulario()
+    return render(request, 'Final/equipo_trabajo.html', {"miFormulario":miFormulario})
+    
+    
 def busquedaPersonal(request):
     return render(request, 'Final/busquedaPersonal.html')
+
+def busquedaEspecialidad(request):
+    return render(request, 'Final/busquedaEspecialidad.html')
+
+def busquedaEquipo(request):
+    return render(request, 'Final/busquedaEquipo.html')
 
 def buscar(request):
     
@@ -94,8 +121,33 @@ def buscar(request):
         persona = Personal.objects.filter(legajo__icontains=legajo)
 
         return render(request, 'Final/personal.html', {"persona":persona, "legajo":legajo} )
-    
+ 
     else:
         respuesta = "Ningun dato solicitado"
     
     return render(request, 'Final/personal.html', {"respuesta":respuesta})
+
+def buscar_especialidad(request):
+    if request.GET['nombre']:
+        especialidad_nombre = request.GET['nombre']
+        especialidad = Especialidad.objects.filter(especialidad__icontains=especialidad_nombre)
+
+        return render(request, 'Final/especialidad.html', {"especialidad_nombre":especialidad_nombre, "especialidad":especialidad} )
+    
+    else:
+        respuesta = "Ningun dato solicitado"
+    
+    return render(request, 'Final/especialidad.html', {"respuesta":respuesta})
+
+def buscar_equipo(request):
+    
+    if request.GET['nombre']:
+        equipo_nombre = request.GET['nombre']
+        equipo = EquipoTrabajo.objects.filter(equipo__icontains=equipo_nombre)
+
+        return render(request, 'Final/equipo_trabajo.html', {"equipo_nombre":equipo_nombre, "equipo":equipo} )
+    
+    else:
+        respuesta = "Ningun dato solicitado"
+    
+    return render(request, 'Final/equipo_trabajo.html', {"respuesta":respuesta})

@@ -3,6 +3,41 @@
 {% load static %}
 
 {% block contenidoQueCambia %}
-Vista de equipos de trabajo
+
+{% if miFormulario %}
+
+{% if miFormulario.errors %}
+
+<p style="color:red"> Están mal los datos, revisar</p>
+
+{% endif %}
+
+<form action="" method="POST"> {% csrf_token %}
+
+    <table>
+
+        {{ miFormulario.as_table }}
+
+    </table>
+        
+    <input type="submit" value="Enviar">
+
+</form>
+{% endif %}
+
+{% if equipo %}
+<p>Estamos buscando el quipo : {{equipo_nombre}} </p>    
+<ul>
+    {% if equipo %}
+        {% for clases in equipo %}
+            <li>Equipo: {{clases.equipo}} </li>
+            <li>Responsable: {{clases.responsable}}</li>
+        {% endfor %}
+    {% else %}
+        <li>Equipo no encontrado</li>
+    {% endif %}
+{% endif %}
+</ul>
+
 
 {% endblock %}

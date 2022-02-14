@@ -25,15 +25,15 @@
 {% endif %}
 
 {% if especialidad %}
-<p>Estamos buscando la especialidad : {{especialidad}} </p>    
+<p>Estamos buscando la especialidad : {{especialidad_nombre}} </p>    
 <ul>
     {% if especialidad %}
         {% for clases in especialidad %}
             <li>Especialidad: {{clases.especialidad}} </li>
-            <li>Activa (Si= 1, No =0): {{clases.esp_activa}}</li>
+            <li>Activa: {{clases.esp_activa}}</li>
         {% endfor %}
     {% else %}
-        <li>Especialidad no encontrado</li>
+        <li>Especialidad no encontrada</li>
     {% endif %}
 {% endif %}
 </ul>
